@@ -1,0 +1,39 @@
+.subtask_list_columns_contener {
+  padding: 10px;
+}
+
+.subtask_list_columns {
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+}
+
+.subtask_list_columns .header td {
+  font-weight: bold;
+  font-size: 120%;
+  padding: 20px 10px 10px 10px;
+  border-bottom: 1px solid #ccc;
+  border-left: none;
+}
+
+.subtask_list_columns tr td:first-child {
+  width: 70%;
+}
+
+.subtask_list_columns tr td:last-child {
+  width: 30%;
+}
+
+.subtask_list_columns tr td label {
+  cursor: pointer;
+}
+
+.subtask_list_columns_buttoms .submit {
+  display: block;
+  float: left;
+  margin: 15px 20px 15px 0;
+}
+
+.subtask_list_columns_buttoms .back {
+  display: block;
+  margin: 22px 0 0 0;
+}

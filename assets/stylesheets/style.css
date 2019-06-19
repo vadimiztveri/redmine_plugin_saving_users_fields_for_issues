@@ -1,0 +1,12 @@
+select {
+	width: 200px;
+}
+
+select#project_lists {
+  height: initial;
+  overflow-x: scroll;
+}
+
+#div_available_columns {
+	padding-left: 30px;
+}

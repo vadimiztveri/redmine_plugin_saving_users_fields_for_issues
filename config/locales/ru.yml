@@ -1,0 +1,11 @@
+ru:
+  subtask_list_columns: "Столбцы в списке подзадач"
+  available_columns: "Доступные столбцы"
+  selected_columns: "Выбранные столбцы"
+
+  issue_subtasks_sorting_enabled: 'Включена сортировка по дате подзадач.'
+  place_for_empty_start_dates: 'Где размещаются подзадачи с пустым полем даты старта'
+
+  empty_start_dates:
+    before: 'В начале'
+    after: 'В конце'

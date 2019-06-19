@@ -1,0 +1,69 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag "subtask_list_columns_positions.css", :plugin => "subtask_list_columns", :media => "screen" %>
+<% end %>
+
+<h1>Настройки отображения подзадач</h1>
+
+<p id='issue' dataissueid='<%= @issue.id %>'>Задача: <%= link_to @issue.subject, "/issues/#{@issue.id}" %></p>
+
+<h2>Настроенные поля для задач в проекте:</h2>
+
+<%= form_tag("/issues/#{@issue.id}/subtask_list_columns", method: :put) do %>
+  <table class='subtask_list_columns_positions'>
+    <thead>
+      <tr>
+        <th><span class='text'>Позиция</span></th>
+        <th><span class='text'>Название поля</span></th>
+        <th><span class='text'>Удвление</span></th>
+        <th><span class='text'>Изменить позицию</span></th>
+      </tr>
+    </thead>
+
+    <tbody id='persisted_fields'>
+      <% @subtask_list_columns.each do |subtask_list_column| %>
+        <tr class='persisted-row'>
+          <td class='position'><span class='text'><%= subtask_list_column.position %></span></td>
+          <%= hidden_field_tag("subtask_list_column[#{subtask_list_column.id}]", :position, value: subtask_list_column.position, class: 'position-hidden-field') %>
+          <td><span class='text'><%= @fields_names[subtask_list_column.issue_field.to_sym] %></span></td>
+          <td class='delete-column'>
+            <span class='delete-column-botton botton' subtask_list_column_id='<%= subtask_list_column.id %>'>
+              Удалить
+            </span>
+          </td>
+          <td class='td-button'><span class='button move'>↕</span></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= submit_tag 'Сохранить порядок', class: 'subtask_list_columns_submit' %>
+<% end %>
+
+<h2>Добавить поля</h2>
+<table class='subtask_list_columns_positions'>
+  <thead>
+    <tr>
+      <th><span class='text'>Название поля</span></th>
+      <th><span class='text'>Добавить</span></th>
+      <th><span class='text'>Добавление</span></th>
+    </tr>
+  </thead>
+
+  <tbody id='avalible_fields'>
+    <% @new_subtask_list_columns.each do |new_subtask_list_column| %>
+      <tr id='<%= new_subtask_list_column[:key] %>'>
+        <td><span class='text'><%= new_subtask_list_column[:value] %></span></td>
+        <td class='add-column'>
+          <span class='add-column-botton' columnkey='<%= new_subtask_list_column[:key] %>'>
+            Добавить
+          </span>
+        </td>
+        <td class='loader'><img src='/images/loader.gif'></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= javascript_include_tag 'subtask_list_columns.js', :plugin => 'subtask_list_columns' %>
+<%= javascript_include_tag 'jquery-sortable-min.js', :plugin => 'subtask_list_columns' %>
+<%= javascript_include_tag 'sortable.js', :plugin => 'subtask_list_columns' %>

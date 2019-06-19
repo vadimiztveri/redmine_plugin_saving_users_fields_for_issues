@@ -1,0 +1,83 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag "subtask_list_columns.css", :plugin => "subtask_list_columns", :media => "screen" %>
+<% end %>
+
+<div class="subtask_list_columns_contener">
+  <table class="plugin_settings subtask_list_columns">
+    <tr>
+      <td>
+        <label for='settings_issue_subtasks_sorting_enabled'>
+          <%= l(:issue_subtasks_sorting_enabled) %>
+        </label>
+      </td>
+      <td>
+        <%= check_box_tag 'settings[issue_subtasks_sorting_enabled]', 1, @settings['issue_subtasks_sorting_enabled'] %>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <%= l(:place_for_empty_start_dates) %>
+      </td>
+      <td>
+        <% options = '' %>
+
+        <% %w(before after).each do |place| %>
+          <% options << '<option ' %>
+          <% if @settings['place_for_empty_start_dates'] == place %>
+            <% options << 'selected ' %>
+          <% end %>
+          <% options << "value='#{place}'>" %>
+          <% options << l("empty_start_dates.#{place}") %>
+          <% options << '</option>' %>
+        <% end %>
+
+        <%= select_tag('settings[place_for_empty_start_dates]', raw(options)) %>
+      </td>
+    </tr>
+
+    <tr class='header'>
+      <td>
+        Поля, отображаемые в таблице подзадач
+      </td>
+      <td>
+      </td>
+    </tr>
+
+    <% redmine_fields_data = AllIssuesFields.redmine_fields %>
+    <% redmine_fields_data.each do |field_data| %>
+      <tr>
+        <td>
+          <label for='settings_redmine_fields_<%= field_data[:field] %>'>
+            <%= field_data[:name] %>
+          </label>
+        </td>
+        <td>
+          <%= check_box_tag "settings[redmine_fields][#{field_data[:field]}]", 1, (@settings.key?('redmine_fields') && @settings['redmine_fields'].key?(field_data[:field].to_s)) %>
+        </td>
+      </tr>
+    <% end %>
+
+    <tr class='header'>
+      <td>
+        Настраиваемые поля, отображаемые в таблице подзадач
+      </td>
+      <td>
+      </td>
+    </tr>
+
+    <% custom_fields_data = AllIssuesFields.custom_fields %>
+    <% custom_fields_data.each do |field_data| %>
+      <tr>
+        <td>
+          <label for='settings_issue_custom_fields_<%= field_data[:id] %>'>
+            <%= field_data[:name] %>
+          </label>
+        </td>
+        <td>
+          <%= check_box_tag "settings[issue_custom_fields][#{field_data[:id]}]", 1, (@settings.key?('issue_custom_fields') && @settings['issue_custom_fields'].key?(field_data[:id].to_s)) %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
